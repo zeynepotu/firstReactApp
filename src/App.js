@@ -1,16 +1,20 @@
-import React,{Fragment, useEffect, useState} from 'react';
+import React,{Fragment, useEffect, useRef, useState} from 'react';
 import "./App.css";
 import "./Input.js";
 import Input from './Input.js';
+
 function HelloWorld(props){
 const[isTrue,setIsTrue] = useState(true);
 const[crowd,setCrowd] = useState([]);
-
 const[firstName,setFirstName] = useState("");
 const[lastName,setLastname] = useState("");
 const[dob,setDob] = useState("");
 
+//refs
 
+const firstNameRef = useRef();
+const lastNameRef = useRef();
+const dobRef = useRef(null);
 
 const toggleTrue = () => {
     if(isTrue) {
@@ -74,6 +78,9 @@ const handleSubmit = (event) => {
     setFirstName("");
     setLastname("");
     setDob("");
+    firstNameRef.current.value= ""; 
+    lastNameRef.current.value= ""; 
+    dobRef.current.value="";
     }
     return(
         <Fragment>        
@@ -100,6 +107,7 @@ const handleSubmit = (event) => {
                     type='text'
                     name='first-name'
                     id='first-name'
+                    ref={firstNameRef}
                     autoComplete='first-name-new'
                     onChange={(event)=>setFirstName(event.target.value)}
                     ></input>
@@ -108,6 +116,7 @@ const handleSubmit = (event) => {
                     className= 'form-control'
                     type='text'
                     name='last-name'
+                    ref={lastNameRef}
                     id='last-name'
                     autoComplete='last-name-new'
                     onChange={(event)=>setLastname(event.target.value)}
@@ -118,6 +127,7 @@ const handleSubmit = (event) => {
                     type="date"
                     name="dob"
                     autoComplete="dob-new"
+                    ref={dobRef}
                     className="form-control"
                     onChange={(event)=>setDob(event.target.value)}
                     ></Input>
